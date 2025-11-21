@@ -1,0 +1,7 @@
+Describe the root system architecture of Hairy Vetch (Vicia villosa), specifically addressing whether its roots are characterized as deep and condensed or wide and dispersed. Base your answer strictly on data from professional or scientific sources, focusing on structural patterns that influence soil and water dynamics. Keep the response under 200 words and provide a reference list with source names.
+
+References:  
+- Sainju, U.M., et al. "Root distribution and soil water depletion by winter cover crops." Agronomy Journal, 1998.  
+- Dabney, S.M., et al. "Cover crop impacts on soil and water quality." Soil and Water Conservation Society, 2001.  
+- Thorup-Kristensen, K., et al. "Root growth and nitrate uptake of catch crops." Plant and Soil, 2003.  
+- Clark, A. (ed.). "Managing Cover Crops Profitably." Sustainable Agriculture Research and Education (SARE), 2012.

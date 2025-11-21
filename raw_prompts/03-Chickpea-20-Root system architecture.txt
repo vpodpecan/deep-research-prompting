@@ -1,0 +1,8 @@
+For legume Chickpea, I am interested in Root system architecture (Structural pattern of plant roots affecting soil and water dynamics.). Scale: deep and condensed, wide and dispersed
+Construct me the a short, clear and concise deep research prompt which:
+
+- bases the answer only on data from professional or scientific sources
+- keeps the answer under 200 words, factual, and without speculation
+- returns a reference list with source names
+
+The prompt will be used directly so do not include any additional text.

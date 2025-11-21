@@ -269,7 +269,7 @@ def main():
 
     jsonl_path = build_jsonl(prompts, args.model, args.max_tool_calls, args.instructions)
 
-    client = OpenAI()
+    client = OpenAI(api_key=open('api_keys/openai_api_key_legumeES-DR').read().strip())
 
     batch = submit_batch(client, jsonl_path)
     print(f"Batch submitted: {batch.id}")

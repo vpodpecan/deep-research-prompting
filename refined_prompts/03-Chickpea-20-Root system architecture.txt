@@ -1,0 +1,8 @@
+Summarize the current scientific understanding of root system architecture in chickpea (Cicer arietinum L.), specifically comparing deep and condensed versus wide and dispersed root patterns. Focus on how these structural patterns influence soil water uptake, drought adaptation, and nutrient acquisition. Base your answer strictly on data from peer-reviewed journals, agronomy reports, and authoritative plant physiology sources. Provide a concise synthesis (under 200 words) and include a reference list with source names only.
+
+References:  
+- "Root system architecture and its relationship with drought tolerance in chickpea" (Plant and Soil)  
+- "Root traits and their potential links to plant productivity in chickpea" (Field Crops Research)  
+- "Chickpea root system: Morphological and physiological traits for drought adaptation" (Frontiers in Plant Science)  
+- "Genetic variation in root architecture of chickpea and its implications for water use" (Euphytica)  
+- "Root system architecture: Insights from legume crops" (Annual Review of Plant Biology)

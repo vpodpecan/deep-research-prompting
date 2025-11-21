@@ -1,0 +1,8 @@
+For legume Lupin, I am interested in Vegetation cover of soil surface (Percentage of soil surface protected by vegetation.). 
+Construct me the a short, clear and concise deep research prompt which:
+
+- bases the answer only on data from professional or scientific sources
+- keeps the answer under 200 words, factual, and without speculation
+- returns a reference list with source names
+
+The prompt will be used directly so do not include any additional text.

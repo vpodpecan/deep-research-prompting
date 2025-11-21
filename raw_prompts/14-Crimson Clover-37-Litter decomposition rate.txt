@@ -1,0 +1,8 @@
+For legume Crimson Clover, I am interested in Litter decomposition rate (Rate of organic residue breakdown.). Scale: slow, moderate, fast
+Construct me the a short, clear and concise deep research prompt which:
+
+- bases the answer only on data from professional or scientific sources
+- keeps the answer under 200 words, factual, and without speculation
+- returns a reference list with source names
+
+The prompt will be used directly so do not include any additional text.

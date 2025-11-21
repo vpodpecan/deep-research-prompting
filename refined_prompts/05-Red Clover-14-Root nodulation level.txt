@@ -1,0 +1,1 @@
+Based only on data from professional or scientific sources, summarize the root nodulation level (abundance of nodules hosting nitrogen-fixing bacteria) in Red Clover (Trifolium pratense), using the scale: low, moderate, or high. Keep the answer under 200 words, factual, and without speculation. Provide a reference list with source names.
