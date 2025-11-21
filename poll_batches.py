@@ -231,12 +231,13 @@ def poll_batches(db_path: str, poll_interval: int, api_key: str,
                     continue
 
                 try:
-                    data_bytes = client.files.retrieve_contents(output_file_id)
+                    response = client.files.content(output_file_id)
                 except Exception as e:
                     print(f"  Error downloading output file for {b_id}: {e}")
                     continue
 
-                output_jsonl = data_bytes.decode("utf-8")
+                output_jsonl = response.text
+
                 store_output_for_batch(conn, b_id, output_jsonl)
                 print(f"  Stored responses for batch {b_id}.")
 
