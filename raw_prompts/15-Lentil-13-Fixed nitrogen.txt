@@ -1,0 +1,9 @@
+For legume Lentil, I am interested in Fixed nitrogen (Nitrogen fixed from the atmosphere by legume per hectare.). 
+Construct me the a short, clear and concise deep research prompt which:
+
+- bases the answer only on data from professional or scientific sources
+- keeps the answer under 200 words, factual, and without speculation
+- returns a reference list with source names
+- focuses primarily on data from Europe; if no reliable European data is available, use data from other world regions
+
+The prompt will be used directly so do not include any additional text.
