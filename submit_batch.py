@@ -5,6 +5,7 @@ import os
 import sqlite3
 import uuid
 from datetime import datetime
+import sys
 
 from openai import OpenAI
 
@@ -242,7 +243,7 @@ def main():
         default="tmp",
         help="Temporary directory for JSONL files (default: tmp)",
     )
-    parser.add_argument("--keyfile", default="api_keys/openai_api_key_legumeES-DR",
+    parser.add_argument("--keyfile", default="api_keys/openai_api_key_deep_research",
                         help="File containing the OpenAI API key")
 
 

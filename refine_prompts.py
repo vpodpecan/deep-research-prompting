@@ -18,7 +18,7 @@ def main():
     parser.add_argument("input_folder", help="Folder with input .txt prompt files")
     parser.add_argument("output_folder", help="Folder to store output .txt files")
     parser.add_argument("--model", default="gpt-4.1", help="OpenAI model to use (default: gpt-4.1)")
-    parser.add_argument("--keyfile", default="api_keys/openai_api_key_legumeES-DR",
+    parser.add_argument("--keyfile", default="api_keys/openai_api_key_deep_research",
                         help="File containing the OpenAI API key")
     args = parser.parse_args()
 

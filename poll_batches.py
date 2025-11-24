@@ -4,6 +4,7 @@ import json
 import sqlite3
 import time
 from datetime import datetime
+import sys
 
 from openai import OpenAI
 
@@ -269,7 +270,7 @@ def main():
                         help="Only poll or force-download this specific batch ID")
     parser.add_argument("--force-download", action="store_true",
                         help="One-shot mode: re-download outputs and overwrite DB for completed batches")
-    parser.add_argument("--keyfile", default="api_keys/openai_api_key_legumeES-DR",
+    parser.add_argument("--keyfile", default="api_keys/openai_api_key_deep_research",
                         help="File containing the OpenAI API key")
 
     args = parser.parse_args()
