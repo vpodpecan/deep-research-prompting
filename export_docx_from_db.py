@@ -9,6 +9,75 @@ from docx.opc.constants import RELATIONSHIP_TYPE as RT
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 
+import sys
+import unicodedata
+
+
+# Invalid XML 1.0 characters
+INVALID_XML_RE = re.compile(
+    r"[\x00-\x08\x0B\x0C\x0E-\x1F\x7F"
+    r"\ud800-\udfff]"
+)
+
+CONTROL_CHAR_NAMES = {
+    0x00: "NULL",
+    0x01: "SOH",
+    0x02: "STX",
+    0x03: "ETX",
+    0x04: "EOT",
+    0x05: "ENQ",
+    0x06: "ACK",
+    0x07: "BEL",
+    0x08: "BS",
+    0x0B: "VT",
+    0x0C: "FF",
+    0x0E: "SO",
+    0x0F: "SI",
+    0x10: "DLE",
+    0x11: "DC1",
+    0x12: "DC2",
+    0x13: "DC3",
+    0x14: "DC4",
+    0x15: "NAK",
+    0x16: "SYN",
+    0x17: "ETB",
+    0x18: "CAN",
+    0x19: "EM",
+    0x1A: "SUB",
+    0x1B: "ESC",
+    0x1C: "FS",
+    0x1D: "GS",
+    0x1E: "RS",
+    0x1F: "US",
+    0x7F: "DEL"
+}
+
+def describe_char(c):
+    """Human-readable description of a control character."""
+    code = ord(c)
+    return CONTROL_CHAR_NAMES.get(code, unicodedata.name(c, "UNKNOWN"))
+
+
+def sanitize_xml_string(s: str, context_label: str = "") -> str:
+    """
+    Remove invalid XML characters and log what was removed.
+    context_label helps identify which part of text is being processed.
+    """
+    if not isinstance(s, str):
+        return s
+
+    cleaned = []
+    for i, c in enumerate(s):
+        if INVALID_XML_RE.match(c):
+            name = describe_char(c)
+            sys.stderr.write(
+                f"[XML-SANITIZER] Removed U+{ord(c):04X} '{c}' ({name}) "
+                f"at index {i} in {context_label}\n"
+            )
+            continue
+        cleaned.append(c)
+
+    return "".join(cleaned)
 
 # ============================================================
 #                     JSON Extraction
@@ -38,6 +107,8 @@ def add_hyperlink(paragraph, text, url):
     """
     Insert a clickable Word hyperlink into a paragraph.
     """
+    text = sanitize_xml_string(text, context_label="hyperlink_text")
+    url = sanitize_xml_string(url, context_label="hyperlink_url")
 
     part = paragraph.part
     r_id = part.relate_to(url, RT.HYPERLINK, is_external=True)
@@ -78,6 +149,7 @@ LINK_RE = re.compile(r'\[([^\]]+)\]\(([^)]+)\)')
 
 
 def add_markdown_line(doc, line):
+    line = sanitize_xml_string(line, context_label="parsed_markdown_line")
     line = line.rstrip()
 
     # ---- HEADINGS ----
@@ -115,6 +187,7 @@ def add_styled_text(paragraph, text):
     """
     Add normal + styled (bold/italic) text into paragraph.
     """
+    text = sanitize_xml_string(text, context_label="styled_text")
 
     bold_re = re.compile(r'\*\*(.*?)\*\*')
     italic_re = re.compile(r'\*(.*?)\*')
@@ -155,6 +228,7 @@ def write_docx(filename, markdown_text):
     doc.add_heading("Deep Research Answer", level=1)
 
     for line in markdown_text.split("\n"):
+        line = sanitize_xml_string(line, context_label="markdown_line")
         if line.strip():
             add_markdown_line(doc, line)
         else:
