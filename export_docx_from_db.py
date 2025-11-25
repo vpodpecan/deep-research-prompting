@@ -290,7 +290,8 @@ def export_to_word(db_path: str, output_dir: str):
             skipped += 1
             continue
 
-        fname = safe_filename(custom_id) + ".docx"
+        #fname = safe_filename(custom_id) + ".docx"
+        fname = f'{custom_id}' + ".docx"
         path = os.path.join(output_dir, fname)
 
         write_docx(path, markdown)
