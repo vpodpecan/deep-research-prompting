@@ -1,7 +1,0 @@
-Summarize the root system architecture of Lucerne (Alfalfa, Medicago sativa), focusing on whether it is characterized as deep and condensed or wide and dispersed. Base your answer strictly on data from professional or scientific sources, emphasizing structural patterns relevant to soil and water dynamics. Keep the response under 200 words and provide a reference list with source names only.
-
-Reference list:
-- "Root System Architecture and Its Relationship with Drought Tolerance in Alfalfa (Medicago sativa L.)" – Agronomy Journal
-- "Root Growth and Water Uptake Patterns of Alfalfa" – Crop Science
-- "Alfalfa Root System: Morphology and Function" – Plant and Soil
-- "Medicago sativa L. (Alfalfa): A Model for Studying Root Architecture" – Annals of Botany

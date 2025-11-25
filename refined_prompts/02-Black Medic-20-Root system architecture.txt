@@ -1,6 +1,0 @@
-Describe the root system architecture of Black Medic (Medicago lupulina), focusing on whether it is characterized as deep and condensed or wide and dispersed. Base your answer strictly on data from professional or scientific sources, summarizing the structural pattern of its roots and implications for soil and water dynamics. Keep the response under 200 words and provide a reference list with source names.
-
-Reference List:  
-- "Root System Architecture and Rhizosphere Functioning of Medicago lupulina" – Plant and Soil Journal  
-- "Rooting Depth and Lateral Spread in Leguminous Cover Crops" – Agronomy Journal  
-- "Medicago lupulina L. (Black Medic): A Review of its Agronomic and Ecological Characteristics" – Field Crops Research

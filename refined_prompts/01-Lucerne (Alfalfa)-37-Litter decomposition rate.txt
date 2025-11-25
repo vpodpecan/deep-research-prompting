@@ -1,1 +1,0 @@
-Based only on data from professional or scientific sources, provide a concise summary (under 200 words) of the litter decomposition rate (rate of organic residue breakdown) for the legume Lucerne (Alfalfa), using the scale: slow, moderate, or fast. Include quantitative data or comparative rates where available. Return a reference list with source names.
