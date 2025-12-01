@@ -5,8 +5,15 @@ import sqlite3
 import time
 from datetime import datetime
 import sys
+import signal
 
 from openai import OpenAI
+
+
+def signal_handler(sig, frame):
+    print('Interrupt requested, polling stopped.')
+    sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
 
 
 def read_api_key(path: Path) -> str:
