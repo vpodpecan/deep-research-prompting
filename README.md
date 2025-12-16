@@ -17,7 +17,7 @@ Steps:
 
 3. Submit deep research prompt batch:
     ```bash
-    pyton submit_batch.py <refined prompts folder> <SQLite database file name>
+    python submit_batch.py <refined prompts folder> <SQLite database file name>
     ```
 
     If needed, adjust parameters like `--max-tool-calls`, `--model`, `--instructions`.
