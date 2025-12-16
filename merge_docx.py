@@ -2,109 +2,84 @@
 import argparse
 import os
 import sys
-from copy import deepcopy
 from docx import Document
-from docx.oxml import OxmlElement
-from docx.oxml.ns import qn
+from docxcompose.composer import Composer
 
 
-def make_page_break():
-    """Return <w:p><w:r><w:br w:type='page'/></w:r></w:p>"""
-    p = OxmlElement("w:p")
-    r = OxmlElement("w:r")
-    br = OxmlElement("w:br")
-    br.set(qn("w:type"), "page")
-    r.append(br)
-    p.append(r)
-    return p
+def set_heading_style(p):
+    """Try common heading style names across Word locales/templates."""
+    for name in ("Heading 1", "Heading1"):
+        try:
+            p.style = name
+            return
+        except Exception:
+            pass
+    # fallback: leave default style if heading style name not found
 
 
-def make_heading(text):
+def prepend_filename_heading(doc: Document, filename: str):
     """
-    Create a proper Word Heading 1 paragraph:
-    <w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:t>text</w:t></w:r></w:p>
+    Insert filename heading at the very beginning of the doc without modifying original file on disk.
     """
-    p = OxmlElement("w:p")
+    if doc.paragraphs:
+        first = doc.paragraphs[0]
+        p = first.insert_paragraph_before(filename)
+    else:
+        p = doc.add_paragraph(filename)
 
-    # paragraph properties
-    pPr = OxmlElement("w:pPr")
-    pStyle = OxmlElement("w:pStyle")
-    pStyle.set(qn("w:val"), "Heading1")
-    pPr.append(pStyle)
-    p.append(pPr)
-
-    # run + text
-    r = OxmlElement("w:r")
-    t = OxmlElement("w:t")
-    t.text = text
-    r.append(t)
-    p.append(r)
-
-    return p
+    set_heading_style(p)
 
 
-def merge_documents(files, output_file):
-    # Filter .docx files
-    docx_files = [f for f in files if f.lower().endswith(".docx") and os.path.isfile(f)]
-    if not docx_files:
+def merge(files, output):
+    # keep only existing docx
+    files = [f for f in files if os.path.isfile(f) and f.lower().endswith(".docx")]
+    if not files:
         print("No .docx files found.", file=sys.stderr)
         sys.exit(1)
 
-    # Sort alphabetically
-    docx_files = sorted(docx_files, key=lambda x: x.lower())
+    # sort alphabetically (case-insensitive)
+    files = sorted(files, key=lambda x: os.path.basename(x).lower())
 
     print("Merging documents in this order:")
-    for f in docx_files:
+    for f in files:
         print(" -", f)
 
-    # Create blank master document
-    master = Document()
-    body = master._element.body
+    # Load first doc as master
+    master_path = files[0]
+    master_doc = Document(master_path)
+    prepend_filename_heading(master_doc, os.path.basename(master_path))
+    # Ensure the first document ends with a page break if more docs follow
+    if len(files) > 1:
+        master_doc.add_page_break()
 
-    # Remove default empty paragraph if present
-    while len(body) > 0:
-        del body[0]
+    composer = Composer(master_doc)
 
-    for idx, path in enumerate(docx_files):
-        fname = os.path.basename(path)
-        print(f"Appending: {fname}")
+    # Append remaining docs
+    for i, path in enumerate(files[1:], start=1):
+        d = Document(path)
 
-        # Add page break before each file except the first
-        if idx > 0:
-            body.append(make_page_break())
+        # Put filename heading on its own page at top of this appended doc
+        prepend_filename_heading(d, os.path.basename(path))
 
-        # Add filename heading
-        body.append(make_heading(fname))
+        # Add a page break at the end of this doc unless it's the last one
+        if i < len(files) - 1:
+            d.add_page_break()
 
-        # Load source document
-        src = Document(path)
-        src_body = src._element.body
+        composer.append(d)
 
-        # Append deep-copied XML blocks (preserves hyperlinks!)
-        for child in src_body:
-            body.append(deepcopy(child))
-
-    master.save(output_file)
-    print(f"\nMerged document saved as: {output_file}")
+    composer.save(output)
+    print(f"\nMerged document saved as: {output}")
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Merge .docx files into one, preserving hyperlinks and order."
+    ap = argparse.ArgumentParser(
+        description="Merge multiple DOCX files into one, each starting on a new page with filename heading (hyperlinks preserved)."
     )
-    parser.add_argument(
-        "files",
-        nargs="+",
-        help="Input .docx files (shell globs like ABC*.docx are supported)."
-    )
-    parser.add_argument(
-        "-o", "--output",
-        default="merged.docx",
-        help="Output filename (default: merged.docx)."
-    )
+    ap.add_argument("files", nargs="+", help="Input .docx files (shell glob like ABC*.docx is fine).")
+    ap.add_argument("-o", "--output", default="merged.docx", help="Output file (default: merged.docx)")
+    args = ap.parse_args()
 
-    args = parser.parse_args()
-    merge_documents(args.files, args.output)
+    merge(args.files, args.output)
 
 
 if __name__ == "__main__":

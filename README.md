@@ -32,17 +32,14 @@ Steps:
     python export_docx_from_db.py <SQLite database file name> --output-dir <folder with docx files>
     ```
 
-6. (optional) This step merges all files with the same prefix for this naming pattern:  
- **two digits, dash, name, dash, two digits, remainder.**  
- For example: `04-White_Clover-01-Yield_per_hectare.docx` is one such file and we will merge everything for "White_Clover".
+6. (optional) Merge individual docx files into one big docx:
     ```bash
-    ./merge_docx.sh <input folder with single docx files> <output folder with merged docx files>
+    python merge_docx.py <docx files selection> -o <merged.docx>
     ```
-
 
 **Important**
 
-This code was implemented using ChatGPT-5.1 (with some necessary manual fixes). It works but use at your own risk.
+This code was implemented using ChatGPT-5.1 and 5.2 (with some necessary manual fixes). It works but use at your own risk.
 
 #### License
 
